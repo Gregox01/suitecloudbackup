@@ -1,0 +1,16 @@
+To create the icon.png file:
+
+1. Use an image conversion tool to convert the icon.svg to icon.png
+   - Online tools like https://convertio.co/svg-png/ can be used
+   - Or use image editing software like GIMP, Photoshop, or Inkscape
+
+2. The icon should be at least 128x128 pixels in size
+
+3. Place the icon.png file in this directory (images/)
+
+4. The icon will be used for:
+   - VS Code marketplace listing
+   - Extension icon in VS Code
+   - GitHub repository
+
+Note: VS Code extension packaging (vsce) doesn't support SVG files as icons, which is why we need a PNG version.
