@@ -2,7 +2,7 @@
 
 A Visual Studio Code extension that enhances the SuiteCloud development workflow by providing automatic backups and difference tracking when uploading files to NetSuite.
 
-![SuiteCloud Backup Screenshot](images/screenshot.svg)
+![SuiteCloud Backup Screenshot](images/screenshot.png)
 
 ## Features
 
