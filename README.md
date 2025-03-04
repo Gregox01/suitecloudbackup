@@ -77,7 +77,7 @@ This extension provides the following settings:
 
 ## Contributing
 
-Found a bug or have a feature request? Please open an issue on our [GitHub repository](https://github.com/gregoriollabra/suitecloudbackup).
+Found a bug or have a feature request? Please open an issue on our [GitHub repository](https://github.com/Gregox01/suitecloudbackup).
 
 ## License
 
