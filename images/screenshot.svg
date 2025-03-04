@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <!-- VS Code background -->
+  <rect width="800" height="450" fill="#1E1E1E"/>
+
+  <!-- Left sidebar -->
+  <rect x="0" y="0" width="50" height="450" fill="#252526"/>
+
+  <!-- Explorer sidebar -->
+  <rect x="50" y="0" width="200" height="450" fill="#252526"/>
+  <rect x="50" y="0" width="200" height="30" fill="#3C3C3C"/>
+  <text x="120" y="20" font-family="Arial" font-size="12" fill="#FFFFFF">EXPLORER</text>
+
+  <!-- SuiteCloud Backups section -->
+  <rect x="50" y="200" width="200" height="30" fill="#3C3C3C"/>
+  <text x="120" y="220" font-family="Arial" font-size="12" fill="#FFFFFF">SUITECLOUD BACKUPS</text>
+
+  <!-- Backup files -->
+  <rect x="60" y="240" width="180" height="20" rx="2" fill="#2D2D2D"/>
+  <text x="80" y="255" font-family="Arial" font-size="11" fill="#CCCCCC">script.js (3 backups)</text>
+
+  <rect x="70" y="265" width="170" height="20" rx="2" fill="#2D2D2D"/>
+  <text x="90" y="280" font-family="Arial" font-size="11" fill="#CCCCCC">2025-03-03 10:15 AM</text>
+
+  <rect x="70" y="290" width="170" height="20" rx="2" fill="#2D2D2D"/>
+  <text x="90" y="305" font-family="Arial" font-size="11" fill="#CCCCCC">2025-03-03 09:45 AM</text>
+
+  <rect x="70" y="315" width="170" height="20" rx="2" fill="#2D2D2D"/>
+  <text x="90" y="330" font-family="Arial" font-size="11" fill="#CCCCCC">2025-03-02 04:30 PM</text>
+
+  <!-- Main editor area -->
+  <rect x="250" y="0" width="550" height="450" fill="#1E1E1E"/>
+
+  <!-- Editor tabs -->
+  <rect x="250" y="0" width="550" height="30" fill="#2D2D2D"/>
+  <rect x="250" y="0" width="120" height="30" fill="#0E639C"/>
+  <text x="310" y="20" font-family="Arial" font-size="12" fill="#FFFFFF">script.js</text>
+
+  <!-- Diff view -->
+  <rect x="270" y="50" width="510" height="380" fill="#1E1E1E"/>
+
+  <!-- Diff header -->
+  <rect x="270" y="50" width="510" height="30" fill="#2D2D2D"/>
+  <text x="290" y="70" font-family="Arial" font-size="12" fill="#FFFFFF">Diff: Current vs Backup (2025-03-03 10:15 AM)</text>
+
+  <!-- Diff content -->
+  <rect x="270" y="90" width="250" height="340" fill="#1E1E1E"/>
+  <rect x="530" y="90" width="250" height="340" fill="#1E1E1E"/>
+
+  <!-- Left side (local) -->
+  <text x="280" y="110" font-family="Consolas" font-size="12" fill="#CCCCCC">function processTransaction() {</text>
+  <text x="280" y="130" font-family="Consolas" font-size="12" fill="#CCCCCC">  // Get customer data</text>
+  <text x="280" y="150" font-family="Consolas" font-size="12" fill="#CCCCCC">  var customer = record.load({</text>
+  <text x="280" y="170" font-family="Consolas" font-size="12" fill="#CCCCCC">    type: 'customer',</text>
+  <text x="280" y="190" font-family="Consolas" font-size="12" fill="#CCCCCC">    id: customerId</text>
+  <text x="280" y="210" font-family="Consolas" font-size="12" fill="#CCCCCC">  });</text>
+  <text x="280" y="230" font-family="Consolas" font-size="12" fill="#CCCCCC">  </text>
+  <text x="280" y="250" font-family="Consolas" font-size="12" fill="#FF6464">  // Process payment</text>
+  <text x="280" y="270" font-family="Consolas" font-size="12" fill="#FF6464">  var payment = createPayment(</text>
+  <text x="280" y="290" font-family="Consolas" font-size="12" fill="#FF6464">    customer, amount);</text>
+  <text x="280" y="310" font-family="Consolas" font-size="12" fill="#CCCCCC">  </text>
+  <text x="280" y="330" font-family="Consolas" font-size="12" fill="#CCCCCC">  return payment.id;</text>
+  <text x="280" y="350" font-family="Consolas" font-size="12" fill="#CCCCCC">}</text>
+
+  <!-- Right side (backup) -->
+  <text x="540" y="110" font-family="Consolas" font-size="12" fill="#CCCCCC">function processTransaction() {</text>
+  <text x="540" y="130" font-family="Consolas" font-size="12" fill="#CCCCCC">  // Get customer data</text>
+  <text x="540" y="150" font-family="Consolas" font-size="12" fill="#CCCCCC">  var customer = record.load({</text>
+  <text x="540" y="170" font-family="Consolas" font-size="12" fill="#CCCCCC">    type: 'customer',</text>
+  <text x="540" y="190" font-family="Consolas" font-size="12" fill="#CCCCCC">    id: customerId</text>
+  <text x="540" y="210" font-family="Consolas" font-size="12" fill="#CCCCCC">  });</text>
+  <text x="540" y="230" font-family="Consolas" font-size="12" fill="#CCCCCC">  </text>
+  <text x="540" y="250" font-family="Consolas" font-size="12" fill="#64FF64">  // Process transaction</text>
+  <text x="540" y="270" font-family="Consolas" font-size="12" fill="#64FF64">  var transaction = createTransaction(</text>
+  <text x="540" y="290" font-family="Consolas" font-size="12" fill="#64FF64">    customer, amount, currency);</text>
+  <text x="540" y="310" font-family="Consolas" font-size="12" fill="#CCCCCC">  </text>
+  <text x="540" y="330" font-family="Consolas" font-size="12" fill="#CCCCCC">  return transaction.id;</text>
+  <text x="540" y="350" font-family="Consolas" font-size="12" fill="#CCCCCC">}</text>
+</svg>
