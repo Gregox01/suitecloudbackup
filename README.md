@@ -69,6 +69,26 @@ This extension provides the following settings:
 - File paths with special characters may cause issues on some systems
 - Very large files may take longer to process
 
+## Troubleshooting
+
+### Operation Hangs During Restoration
+If the operation appears to hang during the "Restoring local version..." step:
+- Cancel the operation (if possible)
+- Try processing the file again
+- If problems persist, try using a smaller file
+
+### Missing Account Information
+If you don't see account information in the SuiteCloud Backups panel:
+1. Click the refresh icon in the panel header to force reload account information
+2. Ensure your SuiteCloud project is properly set up with authentication
+3. Check that your project.json file contains valid account-specific values
+
+### Timeout Errors
+The extension now includes timeout protection for operations that might hang. If you see timeout errors:
+1. Check your network connection to NetSuite
+2. Verify that your authentication credentials are valid
+3. Try the operation again
+
 ## Release Notes
 
 ### 0.1.0

@@ -28,7 +28,17 @@ export class BackupExplorer implements vscode.TreeDataProvider<BackupItem> {
   readonly onDidChangeTreeData: vscode.Event<BackupItem | undefined | null | void> = this._onDidChangeTreeData.event;
 
   private backupManager: BackupManager;
-  private backups: Map<string, Array<{ path: string, timestamp: Date, source: string }>> = new Map();
+  private backups: Map<string, Array<{
+    path: string,
+    timestamp: Date,
+    source: string,
+    authId: string,
+    accountInfo: {
+      name: string,
+      id: string,
+      url: string
+    }
+  }>> = new Map();
 
   constructor(context: vscode.ExtensionContext, backupManager: BackupManager) {
     this.backupManager = backupManager;
@@ -40,6 +50,11 @@ export class BackupExplorer implements vscode.TreeDataProvider<BackupItem> {
     });
 
     context.subscriptions.push(treeView);
+
+    // Subscribe to backup changes
+    context.subscriptions.push(
+      this.backupManager.onDidChangeBackups(() => this.refresh())
+    );
 
     // Load backups immediately
     this.refresh();
@@ -131,19 +146,73 @@ export class BackupExplorer implements vscode.TreeDataProvider<BackupItem> {
       const formattedDate = backup.timestamp.toLocaleString();
       const timeAgo = this.formatTimeAgo(backup.timestamp);
 
+      // Create a descriptive label with environment info
+      let labelPrefix = backup.source === 'local' ? 'Local' : 'Account';
+
+      // Add account information if available
+      let accountInfo = '';
+      if (backup.accountInfo && (backup.accountInfo.name || backup.accountInfo.id)) {
+        if (backup.accountInfo.name) {
+          accountInfo = backup.accountInfo.name;
+        } else if (backup.accountInfo.id) {
+          accountInfo = `Account #${backup.accountInfo.id}`;
+        }
+      }
+
+      // Add auth ID if no account info is available
+      if (!accountInfo && backup.authId) {
+        accountInfo = `Auth: ${backup.authId}`;
+      }
+
+      // Create the full label
+      const label = accountInfo
+        ? `${labelPrefix} (${accountInfo}) - ${timeAgo}`
+        : `${labelPrefix} - ${timeAgo}`;
+
+      // Create tooltip with all available information
+      let tooltipInfo = `${backup.source === 'local' ? 'Local' : 'Account'} backup from ${formattedDate}`;
+
+      if (backup.authId) {
+        tooltipInfo += `\nAuth ID: ${backup.authId}`;
+      }
+
+      if (backup.accountInfo) {
+        if (backup.accountInfo.name) {
+          tooltipInfo += `\nAccount: ${backup.accountInfo.name}`;
+        }
+        if (backup.accountInfo.id) {
+          tooltipInfo += `\nAccount ID: ${backup.accountInfo.id}`;
+        }
+        if (backup.accountInfo.url) {
+          tooltipInfo += `\nURL: ${backup.accountInfo.url}`;
+        }
+      }
+
+      // Create the backup data for commands
+      const backupData = {
+        backupPath: backup.path,
+        targetPath: filePath,
+        displayName: `${backup.source === 'local' ? 'Local' : 'Account'} Backup`,
+        source: backup.source,
+        timestamp: backup.timestamp
+      };
+
       const backupNode = new BackupItem(
-        `${backup.source === 'local' ? 'Local' : 'Account'} - ${timeAgo}`,
+        label,
         vscode.TreeItemCollapsibleState.None,
         `backup-${backup.source}`,
         vscode.Uri.file(backup.path),
         {
           command: 'suitecloudbackup.viewBackupDiff',
           title: 'View Diff',
-          arguments: [backup.path]
+          arguments: [backupData]
         },
         formattedDate,
-        `${backup.source === 'local' ? 'Local' : 'Account'} backup from ${formattedDate}`
+        tooltipInfo
       );
+
+      // Add command for Restore action
+      backupNode.contextValue = `backup-${backup.source}`;
 
       backupNode.iconPath = new vscode.ThemeIcon(
         backup.source === 'local' ? 'desktop-download' : 'cloud-download'

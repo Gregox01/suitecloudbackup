@@ -2,7 +2,7 @@
   "name": "suitecloudbackup",
   "displayName": "SuiteCloud Backup",
   "description": "Manage backups and file differences when working with NetSuite SuiteCloud",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "gregox01",
   "author": {
     "name": "Gregorio Llabra"
@@ -21,6 +21,11 @@
   "activationEvents": [
     "onCommand:suitecloudbackup.uploadFile",
     "onCommand:suitecloudbackup.manageBackups",
+    "onCommand:suitecloudbackup.refreshAccountInfo",
+    "onCommand:suitecloudbackup.setAuthId",
+    "onCommand:suitecloudbackup.checkAuth",
+    "onCommand:suitecloudbackup.setupAuthentication",
+    "onCommand:suitecloudbackup.setupSpecificAuthentication",
     "onView:suitecloudbackup-explorer"
   ],
   "main": "./dist/extension.js",
@@ -39,8 +44,32 @@
         "title": "Restore This Backup"
       },
       {
-        "command": "suitecloudbackup.viewBackupDiff",
-        "title": "View Diff"
+        "command": "suitecloudbackup.contextRestoreBackup",
+        "title": "Restore Backup",
+        "icon": "$(history)"
+      },
+      {
+        "command": "suitecloudbackup.refreshAccountInfo",
+        "title": "SuiteCloud: Refresh Account Information",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "suitecloudbackup.setAuthId",
+        "title": "SuiteCloud: Set Authentication ID"
+      },
+      {
+        "command": "suitecloudbackup.checkAuth",
+        "title": "SuiteCloud: Check Authentication Status"
+      },
+      {
+        "command": "suitecloudbackup.setupAuthentication",
+        "title": "SuiteCloud: Setup Authentication",
+        "icon": "$(key)"
+      },
+      {
+        "command": "suitecloudbackup.setupSpecificAuthentication",
+        "title": "SuiteCloud: Setup Specific Authentication ID",
+        "icon": "$(key)"
       }
     ],
     "menus": {
@@ -49,6 +78,14 @@
           "command": "suitecloudbackup.uploadFile",
           "group": "suitecloud",
           "when": "resourceExtname =~ /\\.(js|ts|suitelet|userevent|clientscript|restlet|scheduledscript|portlet|bundle|workflow)$/"
+        },
+        {
+          "command": "suitecloudbackup.setupAuthentication",
+          "group": "suitecloud"
+        },
+        {
+          "command": "suitecloudbackup.setupSpecificAuthentication",
+          "group": "suitecloud"
         }
       ],
       "editor/context": [
@@ -56,16 +93,28 @@
           "command": "suitecloudbackup.uploadFile",
           "group": "suitecloud",
           "when": "resourceExtname =~ /\\.(js|ts|suitelet|userevent|clientscript|restlet|scheduledscript|portlet|bundle|workflow)$/"
+        },
+        {
+          "command": "suitecloudbackup.setupAuthentication",
+          "group": "suitecloud"
+        },
+        {
+          "command": "suitecloudbackup.setupSpecificAuthentication",
+          "group": "suitecloud"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "suitecloudbackup.refreshAccountInfo",
+          "when": "view == suitecloudbackup-explorer",
+          "group": "navigation"
         }
       ],
       "view/item/context": [
         {
-          "command": "suitecloudbackup.restoreBackup",
-          "when": "view == suitecloudbackup-explorer && viewItem =~ /backup-/"
-        },
-        {
-          "command": "suitecloudbackup.viewBackupDiff",
-          "when": "view == suitecloudbackup-explorer && viewItem =~ /backup-/"
+          "command": "suitecloudbackup.contextRestoreBackup",
+          "when": "view == suitecloudbackup-explorer && viewItem =~ /backup-/",
+          "group": "inline"
         }
       ]
     },
@@ -94,7 +143,7 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
+    "compile": "tsc -p ./ --skipLibCheck",
     "watch": "tsc -watch -p ./",
     "lint": "eslint . --ext .ts",
     "package": "vsce package"
